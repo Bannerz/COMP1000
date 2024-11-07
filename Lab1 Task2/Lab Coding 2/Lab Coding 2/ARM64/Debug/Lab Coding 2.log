@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\Alex\source\repos\Lab Coding 2\Lab Coding 2\main.cpp(24,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Lab Coding 2.vcxproj -> C:\Users\Alex\source\repos\Lab Coding 2\Lab Coding 2\ARM64\Debug\Lab Coding 2.exe

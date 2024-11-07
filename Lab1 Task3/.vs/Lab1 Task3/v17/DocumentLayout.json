@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Alex\\source\\repos\\Lab1 Task3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{71D206B5-E23D-4B84-A29F-E88D452D03B2}|Lab1 Task3\\Lab1 Task3.vcxproj|C:\\Users\\Alex\\source\\repos\\Lab1 Task3\\Lab1 Task3\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{71D206B5-E23D-4B84-A29F-E88D452D03B2}|Lab1 Task3\\Lab1 Task3.vcxproj|solutionrelative:Lab1 Task3\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\Alex\\source\\repos\\Lab1 Task3\\Lab1 Task3\\main.cpp",
+              "RelativeDocumentMoniker": "Lab1 Task3\\main.cpp",
+              "ToolTip": "C:\\Users\\Alex\\source\\repos\\Lab1 Task3\\Lab1 Task3\\main.cpp",
+              "RelativeToolTip": "Lab1 Task3\\main.cpp",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwBEAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-26T12:37:28.666Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

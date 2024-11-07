@@ -1,0 +1,2 @@
+{name: "Alice", grades: "85,90,95"}
+{name: "Bob", grades: "75,80,82"}

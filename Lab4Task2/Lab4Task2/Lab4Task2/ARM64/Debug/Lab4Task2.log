@@ -1,0 +1,5 @@
+﻿  lab4task2.cpp
+C:\Users\Alex\source\repos\Lab4Task2\Lab4Task2\lab4task2.cpp(17,25): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Alex\source\repos\Lab4Task2\Lab4Task2\lab4task2.cpp(19,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Alex\source\repos\Lab4Task2\Lab4Task2\lab4task2.cpp(20,26): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  Lab4Task2.vcxproj -> C:\Users\Alex\source\repos\Lab4Task2\Lab4Task2\ARM64\Debug\Lab4Task2.exe

@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Alex\\source\\repos\\Lab 5 Task 3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{31872285-2225-4002-9A20-DA040F5A2FEB}|Lab 5 Task 3\\Lab 5 Task 3.vcxproj|C:\\Users\\Alex\\source\\repos\\Lab 5 Task 3\\Lab 5 Task 3\\lab5task3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{31872285-2225-4002-9A20-DA040F5A2FEB}|Lab 5 Task 3\\Lab 5 Task 3.vcxproj|solutionrelative:Lab 5 Task 3\\lab5task3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "lab5task3.cpp",
+              "DocumentMoniker": "C:\\Users\\Alex\\source\\repos\\Lab 5 Task 3\\Lab 5 Task 3\\lab5task3.cpp",
+              "RelativeDocumentMoniker": "Lab 5 Task 3\\lab5task3.cpp",
+              "ToolTip": "C:\\Users\\Alex\\source\\repos\\Lab 5 Task 3\\Lab 5 Task 3\\lab5task3.cpp",
+              "RelativeToolTip": "Lab 5 Task 3\\lab5task3.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-23T19:43:21.834Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

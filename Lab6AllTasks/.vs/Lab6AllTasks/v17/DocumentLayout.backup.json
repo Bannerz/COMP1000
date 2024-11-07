@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Alex\\source\\repos\\Lab6AllTasks\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{91C4F681-A01D-4D71-8667-D60F0487A92E}|Lab6AllTasks\\Lab6AllTasks.vcxproj|C:\\Users\\Alex\\source\\repos\\Lab6AllTasks\\Lab6AllTasks\\lab6alltasks.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{91C4F681-A01D-4D71-8667-D60F0487A92E}|Lab6AllTasks\\Lab6AllTasks.vcxproj|solutionrelative:Lab6AllTasks\\lab6alltasks.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "lab6alltasks.cpp",
+              "DocumentMoniker": "C:\\Users\\Alex\\source\\repos\\Lab6AllTasks\\Lab6AllTasks\\lab6alltasks.cpp",
+              "RelativeDocumentMoniker": "Lab6AllTasks\\lab6alltasks.cpp",
+              "ToolTip": "C:\\Users\\Alex\\source\\repos\\Lab6AllTasks\\Lab6AllTasks\\lab6alltasks.cpp",
+              "RelativeToolTip": "Lab6AllTasks\\lab6alltasks.cpp",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAAGcAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-31T09:20:11.006Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

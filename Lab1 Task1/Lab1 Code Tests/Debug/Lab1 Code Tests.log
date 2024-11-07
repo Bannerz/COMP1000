@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\Alex\source\repos\Lab1 Code Tests\Lab1 Code Tests\main.cpp(8,15): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Lab1 Code Tests.vcxproj -> C:\Users\Alex\source\repos\Lab1 Code Tests\Debug\Lab1 Code Tests.exe

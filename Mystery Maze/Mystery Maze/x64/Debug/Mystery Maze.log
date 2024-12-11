@@ -1,0 +1,51 @@
+﻿  BackUpGame.cpp
+  Credits.cpp
+  Game.cpp
+  main.cpp
+  MainMenu.cpp
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(33,59): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(33,59): warning C4244:         with
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(33,59): warning C4244:         [
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(33,59): warning C4244:             T=unsigned int
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(33,59): warning C4244:         ]
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(33,39): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(33,39): warning C4244:         with
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(33,39): warning C4244:         [
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(33,39): warning C4244:             T=unsigned int
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(33,39): warning C4244:         ]
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(34,61): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(34,61): warning C4244:         with
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(34,61): warning C4244:         [
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(34,61): warning C4244:             T=unsigned int
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(34,61): warning C4244:         ]
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(34,41): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(34,41): warning C4244:         with
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(34,41): warning C4244:         [
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(34,41): warning C4244:             T=unsigned int
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\main.cpp(34,41): warning C4244:         ]
+  Maze.cpp
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(73,34): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(73,34): warning C4244:         with
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(73,34): warning C4244:         [
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(73,34): warning C4244:             T=float
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(73,34): warning C4244:         ]
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(74,51): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(74,51): warning C4244:         with
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(74,51): warning C4244:         [
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(74,51): warning C4244:             T=float
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(74,51): warning C4244:         ]
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(75,59): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(75,59): warning C4244:         with
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(75,59): warning C4244:         [
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(75,59): warning C4244:             T=float
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(75,59): warning C4244:         ]
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(75,34): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(75,34): warning C4244:         with
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(75,34): warning C4244:         [
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(75,34): warning C4244:             T=float
+C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\Mystery Maze\Maze.cpp(75,34): warning C4244:         ]
+  Options.cpp
+  Player.cpp
+  Zombie.cpp
+  Generating Code...
+  Mystery Maze.vcxproj -> C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\x64\Debug\Mystery Maze.exe

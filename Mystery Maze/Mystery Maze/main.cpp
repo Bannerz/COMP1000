@@ -1,11 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include "MainMenu.hpp"
-#include "Credits.hpp" // Incliude Credits logic header
-#include "Game.hpp" // Include game logic header
+#include "Credits.hpp"
+#include "Game.hpp" 
 #include "Options.hpp"
 #include <iostream>
 
-// Define the GameState enum
+//define the GameState enum
 enum GameState {
     MENU,
     PLAY,
@@ -15,13 +15,13 @@ enum GameState {
 };
 
 int main() {
-    // Create main window
+    //create main window
     sf::RenderWindow window(sf::VideoMode(1600, 1600), "Mystery Maze", sf::Style::Default);
 
     Credits credits;
    
 
-    // Load and set window icon
+    //load and set window icon
     sf::Image icon;
     if (!icon.loadFromFile("textures/ui/icon.png")) {
         std::cerr << "Error: Could not load icon" << std::endl;
@@ -29,14 +29,14 @@ int main() {
     }
     window.setIcon(16, 16, icon.getPixelsPtr());
 
-    // Initialize MainMenu
+    //initialise MainMenu
     MainMenu mainMenu(window.getSize().x, window.getSize().y);
     Options optionsMenu(window.getSize().x, window.getSize().y);
 
 
-    sf::FloatRect mapBounds(0.f, 0.f, 1600.f, 1600.f); // Adjust as per your map size
+    sf::FloatRect mapBounds(0.f, 0.f, 1600.f, 1600.f); //adjust as per your map size
 
-    // Track the current game state
+    //track the current game state
     GameState currentState = MENU;
 
     while (window.isOpen()) {
@@ -58,16 +58,16 @@ int main() {
                     else if (event.key.code == sf::Keyboard::Return) {
                         int selectedOption = mainMenu.MainMenuPressed();
                         switch (selectedOption) {
-                        case 0: // Play
+                        case 0: //play
                             currentState = PLAY;
                             break;
-                        case 1: // Options
+                        case 1: //options
                             currentState = OPTIONS;
                             break;
-                        case 2: // Credits
+                        case 2: //credits
                             currentState = CREDITS;
                             break;
-                        case 3: // Exit
+                        case 3: //exit
                             window.close();
                             break;
                         }
@@ -77,24 +77,24 @@ int main() {
             else if (currentState == OPTIONS) {
                 if (event.type == sf::Event::KeyReleased) {
                     if (event.key.code == sf::Keyboard::Up) {
-                        optionsMenu.opMoveUp(); // Move selection up
+                        optionsMenu.opMoveUp(); //move selection up
                     }
                     else if (event.key.code == sf::Keyboard::Down) {
-                        optionsMenu.opMoveDown(); // Move selection down
+                        optionsMenu.opMoveDown(); //move selection down
                     }
                     else if (event.key.code == sf::Keyboard::Return) {
                         int selectedOpOption = optionsMenu.OptionsPressed();
                         switch (selectedOpOption) {
-                        case 0: // Play
+                        case 0: //play
                             std::cout << "Option 1 Activated" << std::endl;
                             break;
-                        case 1: // Options
+                        case 1: //options
                             std::cout << "Option 2 Activated" << std::endl;
                             break;
-                        case 2: // Credits
+                        case 2: //credits
                             std::cout << "Option 3 Activated" << std::endl;
                             break;
-                        case 3: // Exit
+                        case 3: //exit
                             std::cout << "options closed" << std::endl;
                             currentState = MENU;
                             break;
@@ -105,31 +105,31 @@ int main() {
             }
         }
 
-        // Clear the window
+        //clear the window
         window.clear();
 
-        // Render based on the current state
+        //render based on the current state
         if (currentState == MENU) {
 
             mainMenu.draw(window);
 
         }
         else if (currentState == PLAY) {
-            // Run game logic
-            runGame(window); // Call the function in game.cpp
-            currentState = MENU; // Return to main menu after game
+            //run game logic
+            runGame(window); //call the function in game.cpp
+            currentState = MENU; //return to main menu after game
         }
         else if (currentState == OPTIONS) {
-            // Render the Options menu
+            //render the Options menu
             optionsMenu.opDraw(window);
         }
         else if (currentState == CREDITS) {
-            // Run credits
-            credits.runCredits(window); // Call the function from Credits.cpp
-            currentState = MENU; // Return to main menu after credits
+            //run credits
+            credits.runCredits(window); //call the function from Credits.cpp
+            currentState = MENU; //return to main menu after credits
         }
 
-        // Display the contents of the window
+        //display the window
         window.display();
     }
 

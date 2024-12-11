@@ -23,7 +23,7 @@ void Credits::runCredits(sf::RenderWindow& window) {
             }
 
             if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
-                return; // Exit credits
+                return; //exit credits
             }
         }
 

@@ -39,7 +39,7 @@ Options::Options(float width, float height) {
 }
 
 Options::~Options() {
-	std::cout << "MainMenu destructor called" << std::endl;
+	std::cout << "Options destructor called" << std::endl;
 	exit(0);
 }
 
@@ -51,26 +51,26 @@ void Options::opDraw(sf::RenderWindow& window) {
 }
 
 void Options::opMoveUp() {
-	optionsMenu[OptionsSelected].setFillColor(sf::Color::White); // Reset current selection color
+	optionsMenu[OptionsSelected].setFillColor(sf::Color::White); //reset current selection color
 
-	if (OptionsSelected == 0) { // Wrap to the last item
+	if (OptionsSelected == 0) { //wrap to the last item
 		OptionsSelected = Max_options_menu - 1;
 	}
 	else {
-		OptionsSelected--; // Decrement selection
+		OptionsSelected--; //decrement selection
 	}
 
-	optionsMenu[OptionsSelected].setFillColor(sf::Color::Blue); // Highlight new selection
+	optionsMenu[OptionsSelected].setFillColor(sf::Color::Blue); //highlight new selection
 }
 
 void Options::opMoveDown() {
-	optionsMenu[OptionsSelected].setFillColor(sf::Color::White); // Reset current selection color
+	optionsMenu[OptionsSelected].setFillColor(sf::Color::White); //reset current selection color
 
-	OptionsSelected++; // Increment selection
+	OptionsSelected++; //increment selection
 
-	if (OptionsSelected >= Max_options_menu) { // Wrap to the first item
+	if (OptionsSelected >= Max_options_menu) { //wrap to the first item
 		OptionsSelected = 0;
 	}
 
-	optionsMenu[OptionsSelected].setFillColor(sf::Color::Blue); // Highlight new selection
+	optionsMenu[OptionsSelected].setFillColor(sf::Color::Blue); //highlight new selection
 }

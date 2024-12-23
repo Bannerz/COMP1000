@@ -41,8 +41,16 @@ void runGame(sf::RenderWindow& window) {
     const float zombieMovementSpeed = 0.1f; //movement speed for zombie
     const float zombieAnimationSpeed = 0.1f; //anim speed for zombie
 
+    //spawn potions
+    const int potionCount = 5; //number of zombies per level (changeable on new level gen)
+    const std::string healthPotPath = "textures/items/healthPot.png"; //zombie texture path
+
     //generate zombies using spawnZombies method
     std::vector<Zombie> zombies = Zombie::spawnZombies(zombieCount, maze.getBounds(), maze.getWallSprites(), zombieTexturePath, zombieMovementSpeed, zombieAnimationSpeed);
+
+    //generate potions using spawnPotions method
+    std::vector<Potions> potion = Potions::spawnPotions(potionCount, maze.getBounds(), maze.getWallSprites(), healthPotPath);
+
 
     while (window.isOpen()) {
         sf::Event event;
@@ -92,6 +100,14 @@ void runGame(sf::RenderWindow& window) {
             //spawn new zombies for the next level
             zombies = Zombie::spawnZombies(zombieCount + level, maze.getBounds(), maze.getWallSprites(), zombieTexturePath, zombieMovementSpeed, zombieAnimationSpeed);
 
+
+            //spawn new potions for next level
+            potion = Potions::spawnPotions(
+                5,                              // Number of potions for this level
+                maze.getBounds(),               // Map bounds
+                maze.getWallSprites(),          // Wall sprites to avoid
+                "textures/items/healthPot.png"  // Potion texture path
+            );
             //set view to player
             view.setCenter(player.getPosition());
         }
@@ -120,7 +136,22 @@ void runGame(sf::RenderWindow& window) {
             zombie.update(player, player.getPosition(), maze.getWallSprites(), elapsedTime);
             zombie.draw(window, maze.getFogGrid(), maze.getCellSize());
         }
-        potions.draw(window);
+
+        //spawn and draw potions
+        for (auto it = potion.begin(); it != potion.end(); ) {
+            it->update(player); // Update the potion
+
+            if (it->shouldDespawn()) { // Check if the potion is inactive
+                it = potion.erase(it); // Erase the potion and update the iterator
+            }
+            else {
+                it->draw(window, maze.getFogGrid(), maze.getCellSize()); // Draw the active potion
+                ++it; // Increment the iterator
+            }
+        }
+
+
+       // potions.draw(window);
         //display the windows
         window.display();
     }

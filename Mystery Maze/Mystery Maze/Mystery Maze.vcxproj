@@ -19,23 +19,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BackUpGame.cpp" />
     <ClCompile Include="Credits.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Health.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="Options.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Potions.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Credits.hpp" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Health.hpp" />
     <ClInclude Include="MainMenu.hpp" />
     <ClInclude Include="Maze.hpp" />
     <ClInclude Include="Options.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Potions.hpp" />
     <ClInclude Include="Zombie.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

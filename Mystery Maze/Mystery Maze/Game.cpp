@@ -1,7 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include "Maze.hpp"
 #include "Player.hpp"
+#include "Health.hpp"
 #include "Zombie.hpp"
+#include "Potions.hpp"
 #include <iostream>
 
 using namespace std;
@@ -11,9 +13,22 @@ void runGame(sf::RenderWindow& window) {
     int level = 1; //start at level 1
     int mazeSize = 15; //initial maze size
 
+    
+
     Maze maze(mazeSize, mazeSize, 48); //last number is cell size
     Player player("textures/player/sprite_no_weapon.png", 0.1f, 100.f); //init player
+    Health health("textures/items/heart.png");
+    Potions potions("textures/items/healthPot.png", 10);
     player.setPosition(maze.getStartPosition().x, maze.getStartPosition().y); //place player at start of maze
+
+    potions.setPotPosition(60.f, 60.f);
+
+    int playerLives = 5; //set players lives
+
+    health.setLives(playerLives);
+
+    potions.healthAdd = 20;
+
 
     sf::View view(sf::FloatRect(0.f, 0.f, 1600.f, 1600.f)); //create camera view
     view.setCenter(player.getPosition()); //centre the view on the player
@@ -49,12 +64,21 @@ void runGame(sf::RenderWindow& window) {
         maze.revealFog(player.getPosition(), 3); //call reveal fog and reveal the fog at players position in 3 tile radius
 
         //lose condition
+        //if player dies, remove life, if life = 0 end game
         if (player.playerHealth <= 0) { //if the player loses all health, exit game and print you died. reset the view so menu doesnt move
-            std::cout << "You died!" << std::endl;
+            std::cout << "You lost a life!" << std::endl;
+            playerLives += -1; //remove life
+            health.setLives(playerLives); //change hearts sprites vector
+            player.playerHealth = 48; //reset player health
+            std::cout << "Lives remaining:" << playerLives << std::endl;
+        }
+        //if player runs out of lives, end the game
+        if (playerLives == 0) {
+            std::cout << "You lost the game!" << std::endl;
             view.setCenter(800.f, 800.f);
             window.setView(view);
             return;
-        }
+        } 
 
         //level win condition
         if (player.getCollisionBounds().intersects(maze.getEndMarker().getGlobalBounds())) { //if the player reaches the end tile
@@ -80,19 +104,23 @@ void runGame(sf::RenderWindow& window) {
             return; //return to menu
         }
 
+        health.updatePosition(window);
+
+
         view.setCenter(player.getPosition()); //reset view to player
         window.setView(view); //set view
 
         window.clear(); //clear the window
         maze.draw(window); //draw the maze
         player.draw(window); //draw the player
+        health.draw(window);
 
         //spawn and draw zombies
         for (auto& zombie : zombies) {
             zombie.update(player, player.getPosition(), maze.getWallSprites(), elapsedTime);
             zombie.draw(window, maze.getFogGrid(), maze.getCellSize());
         }
-
+        potions.draw(window);
         //display the windows
         window.display();
     }

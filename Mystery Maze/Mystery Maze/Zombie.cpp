@@ -152,7 +152,7 @@ void Zombie::update(Player& player, const sf::Vector2f& playerPosition, const st
 
     //check for collisions with player
     if (nextBounds.intersects(player.getCollisionBounds())) {
-        std::cout << "Player hit!" << std::endl;
+        //std::cout << "Player hit!" << std::endl;
         player.playerHealth -= 0.1f; //damage
     }
 

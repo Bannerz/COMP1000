@@ -29,7 +29,8 @@ public:
 
     sf::RectangleShape healthBar;
     float playerHealth;
-    
+    int playerLives;
+
     void reduceHealth();
 
     void handleInput(float elapsedTime, const std::vector<sf::Sprite>& wallSprites);

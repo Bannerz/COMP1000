@@ -32,7 +32,7 @@ void Winner::runWinScreen(sf::RenderWindow& window, int playerScore) {
             }
 
             if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
-                return; //exit credits
+                return; //return to menu
             }
         }
 

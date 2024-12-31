@@ -9,6 +9,7 @@
 #include "Loser.hpp"
 #include "Timer.hpp"
 #include "Score.hpp"
+#include "Puzzle.hpp"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -150,38 +151,44 @@ void runGame(sf::RenderWindow& window) {
             return; //return to menu
         } 
 
-        //level win condition
-        if (player.getCollisionBounds().intersects(maze.getEndMarker().getGlobalBounds())) { //if the player reaches the end tile
-            std::cout << "Level " << level << " Complete!" << std::endl; //print the level complete
-            level++; //increase level
-            mazeSize += 2; //increase maze size
-            //calculate score based on remaining time
-            int timeScore = static_cast<int>(timer.getRemainingTime() * 10); //10 points per second remaining
-            score.scoreUp(timeScore); //update the score with time-based points
-            timer.reset(); //reset level timer
-            maze.reset(mazeSize, mazeSize, maze.getStartPosition()); //reset the maze
-            player.setPosition(maze.getStartPosition().x, maze.getStartPosition().y); //place player at new maze
-            //spawn new zombies for the next level
-            zombies = Zombie::spawnZombies(zombieCount + level, maze.getBounds(), maze.getWallSprites(), zombieTexturePath, zombieMovementSpeed, zombieAnimationSpeed);
-            //spawn new potions for next level
-            potion = Potions::spawnPotions(
-                5, //number of potions for this level
-                maze.getBounds(),              
-                maze.getWallSprites(),         
-                "textures/items/healthPot.png"
-            );
-            //set view to player
-            view.setCenter(player.getPosition());
+        //check for overall win condition before everything else
+        if (level > 5) {
+            std::cout << "You Win!" << std::endl;
+            int finalScore = score.getPlayerScore();
+            view.setCenter(800.f, 800.f); //reset view
+            window.setView(view); //apply reset view
+            winner.runWinScreen(window, finalScore); //show win screen
+            return; //return to menu
         }
 
-        //overall win condition
-        if (level > 5) { //if player beats level 5
-            std::cout << "You Win!" << std::endl; //print you win
-            int finalScore = score.getPlayerScore();
-            view.setCenter(800.f, 800.f); //reset view so menu doesn't move
-            window.setView(view); //set the view
-            winner.runWinScreen(window, finalScore); //call the function from Credits.cpp
-            return; //return to menu
+        //level win condition
+        if (player.getCollisionBounds().intersects(maze.getEndMarker().getGlobalBounds())) {
+            Puzzle puzzle;
+            if (puzzle.run(window)) {
+                std::cout << "Puzzle solved successfully!" << std::endl;
+                level++; //increase level
+                mazeSize += 2; //increase maze size
+
+                //progress to the next level
+                std::cout << "Level " << level << " Complete!" << std::endl;
+                int timeScore = static_cast<int>(timer.getRemainingTime() * 10);
+                int puzzleScore = 100;
+                score.scoreUp(timeScore + puzzleScore);
+                timer.reset();
+                maze.reset(mazeSize, mazeSize, maze.getStartPosition());
+                player.setPosition(maze.getStartPosition().x, maze.getStartPosition().y);
+
+                //spawn new zombies and potions for the next level
+                zombies = Zombie::spawnZombies(zombieCount + level, maze.getBounds(), maze.getWallSprites(), zombieTexturePath, zombieMovementSpeed, zombieAnimationSpeed);
+                potion = Potions::spawnPotions(5, maze.getBounds(), maze.getWallSprites(), "textures/items/healthPot.png");
+
+                view.setCenter(player.getPosition()); //reset view to player
+            }
+            else {
+                //player exited or failed
+                std::cout << "Puzzle not solved. Exiting to menu." << std::endl;
+                return;
+            }
         }
 
         health.updatePosition(window); //update position of the hearts
@@ -246,7 +253,6 @@ void saveGameState(const saveState& state, const std::string& filename) {
     std::cout << "Game saved" << std::endl;
 }
 
-
 bool loadGameState(saveState& state, const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
     if (!file.is_open()) {
@@ -266,9 +272,8 @@ bool loadGameState(saveState& state, const std::string& filename) {
     //read and validate maze data size
     size_t mazeDataSize;
     file.read(reinterpret_cast<char*>(&mazeDataSize), sizeof(mazeDataSize));
-    
 
-    // Read the maze data
+    //read the maze data
     state.mazeData.resize(mazeDataSize);
     file.read(reinterpret_cast<char*>(state.mazeData.data()), mazeDataSize * sizeof(int));
 

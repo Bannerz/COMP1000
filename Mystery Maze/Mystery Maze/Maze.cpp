@@ -30,8 +30,6 @@ void Maze::draw(sf::RenderWindow& window) {
     for (int y = 0; y < height; ++y) {
         for (int x = 0; x < width; ++x) {
             if (fogGrid[y][x]) {
-
-
                 sf::RectangleShape fogTile;
                 fogTile.setSize(sf::Vector2f(static_cast<float>(cellSize), static_cast<float>(cellSize))); //set size to same as maze tile size
                 fogTile.setPosition(static_cast<float>(x * cellSize), static_cast<float>(y * cellSize)); //place over whole maze
@@ -43,9 +41,6 @@ void Maze::draw(sf::RenderWindow& window) {
 
     window.draw(endMarker); //draw the end marker
 }
-
-
-
 
 //get wall sprites
 const std::vector<sf::Sprite>& Maze::getWallSprites() const {
@@ -65,7 +60,6 @@ const sf::RectangleShape& Maze::getEndMarker() const {
 const std::vector<std::vector<bool>>& Maze::getFogGrid() const {
     return fogGrid;
 }
-
 
 //place the end tile
 void Maze::placeEndTile(const sf::Vector2f& playerStart) {
@@ -105,7 +99,6 @@ void Maze::carvePath(int x, int y) {
     }
 }
 
-
 //print the maze to console (for debugging)
 void Maze::printToConsole(const sf::Vector2f& playerStart) const {
     std::cout << "\nMaze Layout:\n";
@@ -132,7 +125,6 @@ void Maze::printToConsole(const sf::Vector2f& playerStart) const {
     std::cout << std::endl;
 }
 
-
 //generate the maze
 void Maze::generate(const sf::Vector2f& playerStart) {
     grid.resize(height, std::vector<int>(width, 0)); //initialize the grid with walls
@@ -142,7 +134,6 @@ void Maze::generate(const sf::Vector2f& playerStart) {
     carvePath(1, 1);        //start carving paths from (1, 1)
     placeEndTile(playerStart); //slace the end tile in one of the far corners
     printToConsole(playerStart); // Print the maze to the console
-
 
     //apply the textures to the walls and paths of the maze
     for (int y = 0; y < height; ++y) {
@@ -163,20 +154,16 @@ void Maze::generate(const sf::Vector2f& playerStart) {
             }
         }
     }
-
-
 }
-
-
 
 //reset the maze for when player reaches end tile
 void Maze::reset(int newWidth, int newHeight, const sf::Vector2f& playerStart) {
     width = newWidth;
     height = newHeight;
-    grid.clear();         //reset the grid
-    wallSprites.clear();  //reset the wall sprites
-    pathSprites.clear();  //reset the path sprites
-    fogGrid.clear();      //clear the fog grid
+    grid.clear(); //reset the grid
+    wallSprites.clear(); //reset the wall sprites
+    pathSprites.clear(); //reset the path sprites
+    fogGrid.clear(); //clear the fog grid
     fogGrid.resize(height, std::vector<bool>(width, true)); //reinitialise fog
     generate(playerStart);
 }
@@ -200,7 +187,7 @@ void Maze::revealFog(const sf::Vector2f& playerPosition, int revealRadius) {
 }
 
 sf::FloatRect Maze::getBounds() const {
-    float widthInPixels = static_cast<float>(width * cellSize);  //calculate maze width in pixels
+    float widthInPixels = static_cast<float>(width * cellSize); //calculate maze width in pixels
     float heightInPixels = static_cast<float>(height * cellSize); //calculate maze height in pixels
     return sf::FloatRect(0.f, 0.f, widthInPixels, heightInPixels); //top left at 0, 0
 }
@@ -212,7 +199,6 @@ std::vector<int> Maze::flatten() const {
     }
     return flat;
 }
-
 
 void Maze::generateFromData(int size, const std::vector<int>& data) {
     if (data.size() != size * size) {

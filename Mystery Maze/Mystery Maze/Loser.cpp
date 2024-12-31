@@ -31,7 +31,7 @@ void Loser::runLoseScreen(sf::RenderWindow& window, int playerScore) {
             }
 
             if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
-                return; //exit credits
+                return; //exit to menu
             }
         }
 
@@ -69,7 +69,7 @@ void Loser::runOOT(sf::RenderWindow& window, int playerScore) {
             }
 
             if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Return) {
-                return; //exit credits
+                return; //exit to menu
             }
         }
 

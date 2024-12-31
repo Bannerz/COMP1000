@@ -9,7 +9,7 @@ Player::Player(const std::string& texturePath, float animationSpeed, float movem
     }
 
     sprite.setTexture(texture);
-    sprite.setTextureRect(sf::IntRect(48, 0, 48, 48)); // Default frame
+    sprite.setTextureRect(sf::IntRect(48, 0, 48, 48)); //default frame
 
     // sprite scale
     sprite.setScale(1.f, 1.f); 
@@ -79,26 +79,22 @@ void Player::handleInput(float elapsedTime, const std::vector<sf::Sprite>& wallS
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         movement.y -= movementSpeed * elapsedTime;
         currentRow = 144; //up animation row
-        isMoving = true;
-        //std::cout << "Moving Up" << endl;
+        isMoving = true;   
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
         movement.y += movementSpeed * elapsedTime;
         currentRow = 0; //down animation row
         isMoving = true;
-        //std::cout << "Moving Down" << endl;
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
         movement.x -= movementSpeed * elapsedTime;
         currentRow = 96; //left animation row
         isMoving = true;
-        //std::cout << "Moving Left" << endl;
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
         movement.x += movementSpeed * elapsedTime;
         currentRow = 48; //right animation row
         isMoving = true;
-        //std::cout << "Moving Right" << endl;
     }
 
     //wall collision

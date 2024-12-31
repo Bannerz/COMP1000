@@ -9,7 +9,7 @@ private:
 
 public:
     Health(const std::string& healthTexPath);
-    void setLives(int playerLives);               //adjust hearts based on lives
+    void setLives(int playerLives); //adjust hearts based on lives
     void updatePosition(const sf::RenderWindow& window); //reposition relative to the view
-    void draw(sf::RenderWindow& window);          //draw all hearts
+    void draw(sf::RenderWindow& window); //draw all hearts
 };

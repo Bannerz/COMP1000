@@ -1,5 +1,4 @@
 #include "Options.hpp"
-#include "textTest.hpp"
 
 Options::Options(float width, float height) {
 	if (!font.loadFromFile("fonts/joystix_monospace.otf")) {

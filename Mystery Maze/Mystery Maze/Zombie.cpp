@@ -58,10 +58,10 @@ void Zombie::update(Player& player, const sf::Vector2f& playerPosition, const st
         targetDirection /= std::hypot(targetDirection.x, targetDirection.y); //normalize the vector
 
         sf::Vector2f potentialMovements[4] = { //movement options
-            {movementSpeed * movement_mult, 0.f},  //right
+            {movementSpeed * movement_mult, 0.f}, //right
             {-movementSpeed * movement_mult, 0.f}, //left
-            {0.f, movementSpeed * movement_mult},  //down
-            {0.f, -movementSpeed * movement_mult}  //up
+            {0.f, movementSpeed * movement_mult}, //down
+            {0.f, -movementSpeed * movement_mult} //up
         };
 
         int priority[4] = { 0, 1, 2, 3 }; //indices of potentialMovements
@@ -111,7 +111,7 @@ void Zombie::update(Player& player, const sf::Vector2f& playerPosition, const st
             currentRow = 96; //left
         }
         else if (movement.y > 0) {
-            currentRow = 0;  //down
+            currentRow = 0; //down
         }
         else if (movement.y < 0) {
             currentRow = 144; //up
@@ -146,7 +146,6 @@ void Zombie::update(Player& player, const sf::Vector2f& playerPosition, const st
 
     //check for collisions with player
     if (nextBounds.intersects(player.getCollisionBounds())) {
-        //std::cout << "Player hit!" << std::endl;
         player.playerHealth -= 0.1f; //damage
     }
 

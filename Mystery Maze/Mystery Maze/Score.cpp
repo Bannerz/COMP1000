@@ -14,11 +14,7 @@ Score::Score(int initialScore) : playerScore(initialScore) {
     scoreText.setString("Score: " + std::to_string(playerScore));
 }
 
-
 void Score::update(const sf::RenderWindow& window) {
-
-    
-
    std::stringstream ss;
    ss << std::fixed << std::setprecision(0) << playerScore;
    scoreText.setString("Score: " + ss.str());

@@ -29,8 +29,8 @@
     <ClCompile Include="Options.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Potions.cpp" />
+    <ClCompile Include="Puzzle.cpp" />
     <ClCompile Include="Score.cpp" />
-    <ClCompile Include="textTest.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Winner.cpp" />
     <ClCompile Include="Zombie.cpp" />
@@ -45,8 +45,8 @@
     <ClInclude Include="Options.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Potions.hpp" />
+    <ClInclude Include="Puzzle.hpp" />
     <ClInclude Include="Score.hpp" />
-    <ClInclude Include="textTest.hpp" />
     <ClInclude Include="Timer.hpp" />
     <ClInclude Include="Winner.hpp" />
     <ClInclude Include="Zombie.hpp" />

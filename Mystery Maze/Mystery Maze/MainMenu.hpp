@@ -6,11 +6,11 @@ class MainMenu {
 public:
     MainMenu(float width, float height);
 
-    void draw(sf::RenderWindow& window); // Draws the menu
-    void MoveUp(); // Move selection up
-    void MoveDown(); // Move selection down
+    void draw(sf::RenderWindow& window); //draws the menu
+    void MoveUp(); //move selection up
+    void MoveDown(); //move selection down
 
-    // Returns the currently selected menu option
+    //returns the currently selected menu option
     int MainMenuPressed() const {
         return MainMenuSelected;
     }
@@ -20,8 +20,8 @@ public:
     ~MainMenu();
 
 private:
-    static constexpr int Max_main_menu = 4; // Number of menu items
-    int MainMenuSelected = 0; // Default selection is the first item
-    sf::Font font; // Font used for menu items
-    sf::Text mainMenu[Max_main_menu]; // Menu items array
+    static constexpr int Max_main_menu = 4; //number of menu items
+    int MainMenuSelected = 0; //default selection is the first item
+    sf::Font font; //font used for menu items
+    sf::Text mainMenu[Max_main_menu]; //menu items array
 };

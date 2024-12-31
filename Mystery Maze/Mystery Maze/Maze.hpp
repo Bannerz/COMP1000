@@ -20,7 +20,6 @@ private:
     std::vector<std::vector<bool>> fogGrid; //fog state for each tile
     bool fogUpdated = false; //track if fog visibility has changed
 
-
     void carvePath(int x, int y); //recursive backtracking for maze generation
     void placeEndTile(const sf::Vector2f& playerStart); //place the end tile in a random corner (1/3)
 
@@ -42,9 +41,6 @@ public:
     sf::FloatRect getBounds() const; //get bounds
     std::vector<int> flatten() const;
     void generateFromData(int size, const std::vector<int>& data);
-
-
-
 };
 
 #endif

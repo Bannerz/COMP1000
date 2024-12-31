@@ -3,10 +3,10 @@
 #include <vector>
 #include <string>
 
-// Function to handle game logic
+//function to handle game logic
 void runGame(sf::RenderWindow& window);
 
-// Struct to represent the game state
+//struct to represent the game state
 struct saveState {
     int level = 0;
     int mazeSize = 0;
@@ -18,9 +18,8 @@ struct saveState {
     std::vector<int> mazeData;
 };
 
-
-// Save game state to a file
+//save game state to a file
 void saveGameState(const saveState& state, const std::string& filename);
 
-// Load game state from a file
+//load game state from a file
 bool loadGameState(saveState& state, const std::string& filename);

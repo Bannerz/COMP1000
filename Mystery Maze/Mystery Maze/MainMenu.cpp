@@ -46,26 +46,26 @@ void MainMenu::draw(sf::RenderWindow& window) {
 }
 
 void MainMenu::MoveUp() {
-	mainMenu[MainMenuSelected].setFillColor(sf::Color::White); // Reset current selection color
+	mainMenu[MainMenuSelected].setFillColor(sf::Color::White); //reset current selection color
 
-	if (MainMenuSelected == 0) { // Wrap to the last item
+	if (MainMenuSelected == 0) { //wrap to the last item
 		MainMenuSelected = Max_main_menu - 1;
 	}
 	else {
-		MainMenuSelected--; // Decrement selection
+		MainMenuSelected--; //decrement selection
 	}
 
-	mainMenu[MainMenuSelected].setFillColor(sf::Color::Blue); // Highlight new selection
+	mainMenu[MainMenuSelected].setFillColor(sf::Color::Blue); //highlight new selection
 }
 
 void MainMenu::MoveDown() {
-	mainMenu[MainMenuSelected].setFillColor(sf::Color::White); // Reset current selection color
+	mainMenu[MainMenuSelected].setFillColor(sf::Color::White); //reset current selection color
 
-	MainMenuSelected++; // Increment selection
+	MainMenuSelected++; //increment selection
 
-	if (MainMenuSelected >= Max_main_menu) { // Wrap to the first item
+	if (MainMenuSelected >= Max_main_menu) { //wrap to the first item
 		MainMenuSelected = 0;
 	}
 
-	mainMenu[MainMenuSelected].setFillColor(sf::Color::Blue); // Highlight new selection
+	mainMenu[MainMenuSelected].setFillColor(sf::Color::Blue); //highlight new selection
 }

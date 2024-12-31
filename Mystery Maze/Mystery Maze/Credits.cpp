@@ -14,7 +14,7 @@ void Credits::runCredits(sf::RenderWindow& window) {
     sf::Text creditsTitle("Credits:", font, 50);
     creditsTitle.setFillColor(sf::Color::White);
     creditsTitle.setPosition(100, 100);
-    sf::Text creditsText("\nGame developed by Alex Banfield \nSprites: \nCazWolf: https://cazwolf.itch.io/tiny-pixel-fantasy-generator \nChris Hamons: https://opengameart.org/content/dungeon-crawl-32x32-tiles \nTutorials Used: \nMenu Tutorial: YouTube.com/watch?v=bOG8667yePY \nScreen States:YouTube.com/watch?v=Qhlqhen6cmw \nViews Documentation: https://www.sfml-dev.org/tutorials/2.6/graphics-view.php\nGame Timer (& score): https://cplusplus.com/forum/windows/172064/ \n \n Press 'Enter' to return to main menu.", font, 20);
+    sf::Text creditsText("\nGame developed by Alex Banfield \nSprites: \nAlex Banfield: Heart and potions\nCazWolf: https://cazwolf.itch.io/tiny-pixel-fantasy-generator \nChris Hamons: https://opengameart.org/content/dungeon-crawl-32x32-tiles \nTutorials Used: \nMenu Tutorial: YouTube.com/watch?v=bOG8667yePY \nScreen States:YouTube.com/watch?v=Qhlqhen6cmw \nViews Documentation: https://www.sfml-dev.org/tutorials/2.6/graphics-view.php\nGame Timer, score, and Game Music: https://cplusplus.com/forum/windows/172064/\nMusic:\nMusic by Jerome Chauve: https://pixabay.com/users/abydos_music-27178115/ \n \nPress 'Enter' to return to main menu.", font, 20);
     creditsText.setFillColor(sf::Color::White);
     creditsText.setPosition(100, 250);
 

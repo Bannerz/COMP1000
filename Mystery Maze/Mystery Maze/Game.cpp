@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "SFML/Audio.hpp"
 #include "Maze.hpp"
 #include "Game.hpp"
 #include "Player.hpp"
@@ -41,6 +42,13 @@ void runGame(sf::RenderWindow& window) {
 
     sf::Clock clock; //aniimation clock
 
+    //load game music
+    sf::Music gameMusic;
+    if (!gameMusic.openFromFile("audio/baroque-summer-loop.mp3")) {
+        std::cerr << "No music file found" << std::endl;
+    }
+
+    gameMusic.play(); //play music
     //spawn zombies
     const int zombieCount = 5; //number of zombies per level (changeable on new level gen)
     const std::string zombieTexturePath = "textures/enemies/zombie.png"; //zombie texture path

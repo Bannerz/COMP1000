@@ -108,11 +108,11 @@ void Potions::draw(sf::RenderWindow& window, const std::vector<std::vector<bool>
         gridX >= 0 && gridX < static_cast<int>(fogGrid[gridY].size())) {
         if (!fogGrid[gridY][gridX]) { //tile is revealed
             window.draw(healthPotSprites);
-            collisionBox.setFillColor(sf::Color(255, 0, 0, 100)); //debug red
+            collisionBox.setFillColor(sf::Color(0, 0, 0, 0)); //debug red
             window.draw(collisionBox);
         }
         else { //tile is fogged
-            collisionBox.setFillColor(sf::Color(255, 0, 0, 50)); //dim red for if under fog 
+            collisionBox.setFillColor(sf::Color(0, 0, 0, 0)); //dim red for if under fog 
             window.draw(collisionBox);
         }
     }

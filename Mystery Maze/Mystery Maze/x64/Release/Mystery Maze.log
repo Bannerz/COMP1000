@@ -1,6 +1,7 @@
-﻿  Generating code
-  0 of 707 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+﻿  Puzzle.cpp
+  Generating code
+  2 of 1054 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  Mystery Maze.vcxproj -> D:\VS Repos\Mystery Maze\x64\Release\Mystery Maze.exe
+  Mystery Maze.vcxproj -> C:\Users\alexb\Documents\GitHub\COMP1000\Mystery Maze\x64\Release\Mystery Maze.exe

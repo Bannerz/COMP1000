@@ -67,6 +67,13 @@ bool Puzzle::run(sf::RenderWindow& window) {
                 return false;
             }
 
+            //exit to menu on Escape key
+            if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape) {
+                puzzleView.setCenter(800.f, 800.f); //move the view back to original position so the menu doesn't move
+                window.setView(puzzleView); //set the view
+                return true; //actually return to previous menu
+            }
+
             inputText.setString("Your Answer: " + playerInput);
 
             if (event.type == sf::Event::TextEntered) {

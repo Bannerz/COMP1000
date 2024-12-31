@@ -16,7 +16,7 @@ Player::Player(const std::string& texturePath, float animationSpeed, float movem
 
     //initialise collision box
     collisionBox.setSize(sf::Vector2f(16.f, 24.f)); //collision box size
-    collisionBox.setFillColor(sf::Color(255, 0, 0, 100)); //semi-transparent red for debugging
+    collisionBox.setFillColor(sf::Color(0, 0, 0, 0)); //semi-transparent red for debugging
     collisionBox.setOrigin(-16.f, -22.f);
 
     //initialise player health bar

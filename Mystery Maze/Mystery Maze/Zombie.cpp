@@ -181,11 +181,11 @@ void Zombie::draw(sf::RenderWindow& window, const std::vector<std::vector<bool>>
             window.draw(sprite); //draw zombie sprite
 
             //set collision box visibility (same as zombie)
-            collisionBox.setFillColor(sf::Color(255, 0, 0, 100)); //semi-transparent red
+            collisionBox.setFillColor(sf::Color(0, 0, 0, 0)); //semi-transparent red
             window.draw(collisionBox);
         } else {
             //set collision box transparency (visible in fog for debugging)
-            collisionBox.setFillColor(sf::Color(255, 0, 0, 50)); //dimmed red for fogged tiles
+            collisionBox.setFillColor(sf::Color(0, 0, 0, 0)); //dimmed red for fogged tiles
             window.draw(collisionBox); //draw collision
         }
     }

@@ -23,7 +23,7 @@ void runGame(sf::RenderWindow& window) {
     Loser loser; //initialise loser
     Timer timer(30); //initialise timer and set level time
     timer.update(window);
-    Score score;
+    Score score(0);
     score.update(window);
 
     Maze maze(mazeSize, mazeSize, 48); //last number is cell size
@@ -70,7 +70,7 @@ void runGame(sf::RenderWindow& window) {
             }
 
             if (event.type == sf::Event::KeyPressed) {
-                // Save Game with P
+                //save with key
                 if (event.key.code == sf::Keyboard::P) {
                     saveState state;
                     state.level = level;
@@ -80,7 +80,7 @@ void runGame(sf::RenderWindow& window) {
                     state.playerX = player.getPosition().x;
                     state.playerY = player.getPosition().y;
                     state.timerRemaining = timer.getRemainingTime();
-                    state.mazeData = maze.flatten(); // Flatten the maze into a 1D vector
+                    state.mazeData = maze.flatten(); //flatten the maze into a 1D vector
                     std::cout << "Saving state:" << std::endl;
                     std::cout << "Level: " << state.level << std::endl;
                     std::cout << "Maze Size: " << state.mazeSize << std::endl;
@@ -89,20 +89,26 @@ void runGame(sf::RenderWindow& window) {
                     std::cout << "Player Position: (" << state.playerX << ", " << state.playerY << ")" << std::endl;
                     std::cout << "Timer Remaining: " << state.timerRemaining << std::endl;
                     std::cout << "Maze Data Size: " << state.mazeData.size() << std::endl;
-                    saveGameState(state, "savegame.dat");
+                    saveGameState(state, "saves/savegame.dat");
                     std::cout << "Game saved!" << std::endl;
                 }
 
-                // Load Game with O
+                //load with key
                 if (event.key.code == sf::Keyboard::O) {
                     saveState state;
-                    if (loadGameState(state, "savegame.dat")) {
+                    if (loadGameState(state, "saves/savegame.dat")) {
                         level = state.level;
                         mazeSize = state.mazeSize;
                         playerLives = state.playerLives;
-                        score = Score(state.playerScore);
+                        score.setPlayerScore(state.playerScore);
                         player.setPosition(state.playerX, state.playerY);
-                        timer.setRemainingTime(state.timerRemaining);
+                        if (state.timerRemaining > 0) {
+                            timer.setRemainingTime(state.timerRemaining);
+                        }
+                        else {
+                            std::cerr << "Warning: Loaded timerRemaining is invalid!" << std::endl;
+                        }
+
                         maze.generateFromData(state.mazeSize, state.mazeData);
                         std::cout << "Game loaded!" << std::endl;
                     }
@@ -215,46 +221,60 @@ void runGame(sf::RenderWindow& window) {
 
 void saveGameState(const saveState& state, const std::string& filename) {
     std::ofstream file(filename, std::ios::binary);
-    if (file.is_open()) {
-        file.write(reinterpret_cast<const char*>(&state.level), sizeof(state.level));
-        file.write(reinterpret_cast<const char*>(&state.mazeSize), sizeof(state.mazeSize));
-        file.write(reinterpret_cast<const char*>(&state.playerLives), sizeof(state.playerLives));
-        file.write(reinterpret_cast<const char*>(&state.playerScore), sizeof(state.playerScore));
-        file.write(reinterpret_cast<const char*>(&state.playerX), sizeof(state.playerX));
-        file.write(reinterpret_cast<const char*>(&state.playerY), sizeof(state.playerY));
-        file.write(reinterpret_cast<const char*>(&state.timerRemaining), sizeof(state.timerRemaining));
-        size_t mazeSize = state.mazeData.size();
-        file.write(reinterpret_cast<const char*>(&mazeSize), sizeof(mazeSize));
-        file.write(reinterpret_cast<const char*>(state.mazeData.data()), mazeSize * sizeof(int));
-        file.close();
-        std::cout << "Game saved successfully!" << std::endl;
+    if (!file.is_open()) {
+        std::cerr << "failed to create or open save file" << std::endl;
+        return;
     }
-    else {
-        std::cerr << "Failed to save game!" << std::endl;
-    }
+
+    //write the state header
+    file.write(reinterpret_cast<const char*>(&state.level), sizeof(state.level));
+    file.write(reinterpret_cast<const char*>(&state.mazeSize), sizeof(state.mazeSize));
+    file.write(reinterpret_cast<const char*>(&state.playerLives), sizeof(state.playerLives));
+    file.write(reinterpret_cast<const char*>(&state.playerScore), sizeof(state.playerScore));
+    file.write(reinterpret_cast<const char*>(&state.playerX), sizeof(state.playerX));
+    file.write(reinterpret_cast<const char*>(&state.playerY), sizeof(state.playerY));
+    file.write(reinterpret_cast<const char*>(&state.timerRemaining), sizeof(state.timerRemaining));
+
+    //validate and write maze data size
+    size_t mazeDataSize = state.mazeData.size();
+    file.write(reinterpret_cast<const char*>(&mazeDataSize), sizeof(mazeDataSize));
+
+    //write the maze data
+    file.write(reinterpret_cast<const char*>(state.mazeData.data()), mazeDataSize * sizeof(int));
+    file.close();//close file
+
+    std::cout << "Game saved" << std::endl;
 }
+
 
 bool loadGameState(saveState& state, const std::string& filename) {
     std::ifstream file(filename, std::ios::binary);
-    if (file.is_open()) {
-        file.read(reinterpret_cast<char*>(&state.level), sizeof(state.level));
-        file.read(reinterpret_cast<char*>(&state.mazeSize), sizeof(state.mazeSize));
-        file.read(reinterpret_cast<char*>(&state.playerLives), sizeof(state.playerLives));
-        file.read(reinterpret_cast<char*>(&state.playerScore), sizeof(state.playerScore));
-        file.read(reinterpret_cast<char*>(&state.playerX), sizeof(state.playerX));
-        file.read(reinterpret_cast<char*>(&state.playerY), sizeof(state.playerY));
-        file.read(reinterpret_cast<char*>(&state.timerRemaining), sizeof(state.timerRemaining));
-        size_t mazeSize;
-        file.read(reinterpret_cast<char*>(&mazeSize), sizeof(mazeSize));
-        state.mazeData.resize(mazeSize);
-        file.read(reinterpret_cast<char*>(state.mazeData.data()), mazeSize * sizeof(int));
-        file.close();
-        std::cout << "Game loaded successfully!" << std::endl;
-        return true;
-    }
-    else {
-        std::cerr << "Failed to load game!" << std::endl;
+    if (!file.is_open()) {
+        std::cerr << "Failed to open save file" << std::endl;
         return false;
     }
+
+    //read the state header
+    file.read(reinterpret_cast<char*>(&state.level), sizeof(state.level));
+    file.read(reinterpret_cast<char*>(&state.mazeSize), sizeof(state.mazeSize));
+    file.read(reinterpret_cast<char*>(&state.playerLives), sizeof(state.playerLives));
+    file.read(reinterpret_cast<char*>(&state.playerScore), sizeof(state.playerScore));
+    file.read(reinterpret_cast<char*>(&state.playerX), sizeof(state.playerX));
+    file.read(reinterpret_cast<char*>(&state.playerY), sizeof(state.playerY));
+    file.read(reinterpret_cast<char*>(&state.timerRemaining), sizeof(state.timerRemaining));
+
+    //read and validate maze data size
+    size_t mazeDataSize;
+    file.read(reinterpret_cast<char*>(&mazeDataSize), sizeof(mazeDataSize));
+    
+
+    // Read the maze data
+    state.mazeData.resize(mazeDataSize);
+    file.read(reinterpret_cast<char*>(state.mazeData.data()), mazeDataSize * sizeof(int));
+
+    file.close();//close file
+
+    return true;
 }
+
 

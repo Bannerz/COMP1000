@@ -5,16 +5,15 @@
 
 Score::Score(int initialScore) : playerScore(initialScore) {
     if (!scoreFont.loadFromFile("fonts/joystix_monospace.otf")) {
-        std::cerr << "No font file found!" << std::endl;
-        exit(EXIT_FAILURE); // Exit or handle the error gracefully
+        std::cerr << "Font file not found" << std::endl;
+        exit(EXIT_FAILURE);
     }
-
     scoreText.setFont(scoreFont);
     scoreText.setCharacterSize(40);
     scoreText.setFillColor(sf::Color::White);
-
-    playerScore = 0;
+    scoreText.setString("Score: " + std::to_string(playerScore));
 }
+
 
 void Score::update(const sf::RenderWindow& window) {
 
@@ -41,6 +40,11 @@ void Score::scoreUp(int value) {
 
 int Score::getPlayerScore() const {
     return playerScore;
+}
+
+void Score::setPlayerScore(int newScore) {
+    playerScore = newScore;
+    scoreText.setString("Score: " + std::to_string(playerScore));
 }
 
 void Score::draw(sf::RenderWindow& window) {

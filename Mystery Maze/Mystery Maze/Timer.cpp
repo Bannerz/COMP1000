@@ -5,7 +5,7 @@
 
 Timer::Timer(float totalTime) : totalTime(totalTime), remainingTime(totalTime) {
     if (!timerFont.loadFromFile("fonts/joystix_monospace.otf")) {
-        std::cerr << "No font file found!" << std::endl;
+        std::cerr << "Font file not found" << std::endl;
     }
 
     timerText.setFont(timerFont);
@@ -14,25 +14,26 @@ Timer::Timer(float totalTime) : totalTime(totalTime), remainingTime(totalTime) {
 }
 
 void Timer::update(const sf::RenderWindow& window) {
-    //calculate the remaining time
-    remainingTime = totalTime - tClock.getElapsedTime().asSeconds();
-    if (remainingTime < 0) remainingTime = 0; //stop negative time
+    float elapsed = tClock.getElapsedTime().asSeconds();
+    remainingTime -= elapsed;
+    tClock.restart();
 
-    //format the remaining time as seconds
+    //update the timer text
     std::stringstream ss;
     ss << std::fixed << std::setprecision(0) << remainingTime;
-    timerText.setString("Time: " + ss.str());
+    timerText.setString(ss.str());
 
-    //update the position based on the view
+    //position the timer text based on the view
     const sf::View& view = window.getView();
     sf::Vector2f viewCenter = view.getCenter();
     sf::Vector2f viewSize = view.getSize();
 
-    float startX = viewCenter.x - viewSize.x / 2.f + 10.f; //top left corner with padding
-    float startY = viewCenter.y - viewSize.y / 2.f + 40.f; //padding of 40 below
+    float startX = viewCenter.x - viewSize.x / 2.f + 10.f;
+    float startY = viewCenter.y - viewSize.y / 2.f + 40.f;
 
     timerText.setPosition(startX, startY);
 }
+
 
 void Timer::reset() {
     tClock.restart();//restart clock
@@ -44,9 +45,15 @@ float Timer::getRemainingTime() const {
 }
 
 void Timer::setRemainingTime(float time) {
-    remainingTime = time;
-    tClock.restart(); // Restart the clock to align with the new remaining time
+    if (time < 0.0f) {
+        std::cerr << "Error: Invalid remaining time!" << std::endl;
+        return;
+    }
+    remainingTime = time; 
+    tClock.restart();     
 }
+
+
 
 void Timer::draw(sf::RenderWindow& window) {
     window.draw(timerText);

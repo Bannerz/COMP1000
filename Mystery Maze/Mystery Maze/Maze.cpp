@@ -136,20 +136,9 @@ void Maze::printToConsole(const sf::Vector2f& playerStart) const {
 //generate the maze
 void Maze::generate(const sf::Vector2f& playerStart) {
     grid.resize(height, std::vector<int>(width, 0)); //initialize the grid with walls
-    //std::cout << "Resizing fogGrid to " << height << "x" << width << std::endl; //debugging
     //resize fogGrid with the correct dimensions
     fogGrid.resize(height, std::vector<bool>(width, true));
-    //debug if fogGrid does not match widrh
-   /*for (int y = 0; y < fogGrid.size(); ++y) {
-        for (int x = 0; x < fogGrid[y].size(); x++) {
-            std::cout << fogGrid[y][x] << " ";
-        }
-        std::cout << std::endl;
-    }*/
-
     wallSprites.clear(); //clear existing wall sprites
-
-
     carvePath(1, 1);        //start carving paths from (1, 1)
     placeEndTile(playerStart); //slace the end tile in one of the far corners
     printToConsole(playerStart); // Print the maze to the console
@@ -218,13 +207,19 @@ sf::FloatRect Maze::getBounds() const {
 
 std::vector<int> Maze::flatten() const {
     std::vector<int> flat;
-    for (const auto& row : grid) { // Assuming mazeGrid is your 2D grid
+    for (const auto& row : grid) {
         flat.insert(flat.end(), row.begin(), row.end());
     }
     return flat;
 }
 
+
 void Maze::generateFromData(int size, const std::vector<int>& data) {
+    if (data.size() != size * size) {
+        std::cerr << "Error: Maze data size does not match expected dimensions!" << std::endl;
+        return;
+    }
+
     grid.resize(size, std::vector<int>(size));
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
@@ -232,4 +227,5 @@ void Maze::generateFromData(int size, const std::vector<int>& data) {
         }
     }
 }
+
 

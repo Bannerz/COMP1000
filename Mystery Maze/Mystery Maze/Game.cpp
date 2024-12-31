@@ -4,36 +4,38 @@
 #include "Health.hpp"
 #include "Zombie.hpp"
 #include "Potions.hpp"
+#include "Winner.hpp"
+#include "Loser.hpp"
+#include "Timer.hpp"
+#include "Score.hpp"
 #include <iostream>
 
 using namespace std;
-using namespace sf;
 
 void runGame(sf::RenderWindow& window) {
     int level = 1; //start at level 1
     int mazeSize = 15; //initial maze size
 
-    
+    Winner winner; //initialise winner
+    Loser loser; //initialise loser
+    Timer timer(30); //initialise timer and set level time
+    timer.update(window);
+    Score score;
+    score.update(window);
 
     Maze maze(mazeSize, mazeSize, 48); //last number is cell size
     Player player("textures/player/sprite_no_weapon.png", 0.1f, 100.f); //init player
     Health health("textures/items/heart.png");
-    Potions potions("textures/items/healthPot.png", 10);
     player.setPosition(maze.getStartPosition().x, maze.getStartPosition().y); //place player at start of maze
 
-    potions.setPotPosition(60.f, 60.f);
+    int playerLives = 3; //set players lives
 
-    int playerLives = 5; //set players lives
-
-    health.setLives(playerLives);
-
-    potions.healthAdd = 20;
-
+    health.setLives(playerLives); //set amount of player lives to health class
 
     sf::View view(sf::FloatRect(0.f, 0.f, 1600.f, 1600.f)); //create camera view
     view.setCenter(player.getPosition()); //centre the view on the player
 
-    sf::Clock clock;
+    sf::Clock clock; //aniimation clock
 
     //spawn zombies
     const int zombieCount = 5; //number of zombies per level (changeable on new level gen)
@@ -50,7 +52,6 @@ void runGame(sf::RenderWindow& window) {
 
     //generate potions using spawnPotions method
     std::vector<Potions> potion = Potions::spawnPotions(potionCount, maze.getBounds(), maze.getWallSprites(), healthPotPath);
-
 
     while (window.isOpen()) {
         sf::Event event;
@@ -70,22 +71,33 @@ void runGame(sf::RenderWindow& window) {
         float elapsedTime = clock.restart().asSeconds(); //measure elapsed time in seconds
         player.handleInput(elapsedTime, maze.getWallSprites());
         maze.revealFog(player.getPosition(), 3); //call reveal fog and reveal the fog at players position in 3 tile radius
+        
+        if (timer.remainingTime <= 0) {
+            std::cout << "You lost the game!" << std::endl;
+            view.setCenter(800.f, 800.f); //reset view so menu doesn't move
+            window.setView(view); //set the view
+            int finalScore = score.getPlayerScore();
+            loser.runOOT(window, finalScore); //call the function from Credits.cpp
+            return; //return to menu
+        }
 
         //lose condition
         //if player dies, remove life, if life = 0 end game
         if (player.playerHealth <= 0) { //if the player loses all health, exit game and print you died. reset the view so menu doesnt move
-            std::cout << "You lost a life!" << std::endl;
+            std::cout << "You lost a life!" << std::endl; //debug losing life
             playerLives += -1; //remove life
             health.setLives(playerLives); //change hearts sprites vector
             player.playerHealth = 48; //reset player health
-            std::cout << "Lives remaining:" << playerLives << std::endl;
+            std::cout << "Lives remaining:" << playerLives << std::endl; //debug losing life
         }
         //if player runs out of lives, end the game
         if (playerLives == 0) {
             std::cout << "You lost the game!" << std::endl;
-            view.setCenter(800.f, 800.f);
-            window.setView(view);
-            return;
+            view.setCenter(800.f, 800.f); //reset view so menu doesn't move
+            window.setView(view); //set the view
+            int finalScore = score.getPlayerScore();
+            loser.runLoseScreen(window, finalScore); //call the function from Credits.cpp
+            return; //return to menu
         } 
 
         //level win condition
@@ -93,20 +105,20 @@ void runGame(sf::RenderWindow& window) {
             std::cout << "Level " << level << " Complete!" << std::endl; //print the level complete
             level++; //increase level
             mazeSize += 2; //increase maze size
-
+            //calculate score based on remaining time
+            int timeScore = static_cast<int>(timer.getRemainingTime() * 10); //10 points per second remaining
+            score.scoreUp(timeScore); //update the score with time-based points
+            timer.reset(); //reset level timer
             maze.reset(mazeSize, mazeSize, maze.getStartPosition()); //reset the maze
             player.setPosition(maze.getStartPosition().x, maze.getStartPosition().y); //place player at new maze
-
             //spawn new zombies for the next level
             zombies = Zombie::spawnZombies(zombieCount + level, maze.getBounds(), maze.getWallSprites(), zombieTexturePath, zombieMovementSpeed, zombieAnimationSpeed);
-
-
             //spawn new potions for next level
             potion = Potions::spawnPotions(
-                5,                              // Number of potions for this level
-                maze.getBounds(),               // Map bounds
-                maze.getWallSprites(),          // Wall sprites to avoid
-                "textures/items/healthPot.png"  // Potion texture path
+                5, //number of potions for this level
+                maze.getBounds(),              
+                maze.getWallSprites(),         
+                "textures/items/healthPot.png"
             );
             //set view to player
             view.setCenter(player.getPosition());
@@ -115,21 +127,22 @@ void runGame(sf::RenderWindow& window) {
         //overall win condition
         if (level > 5) { //if player beats level 5
             std::cout << "You Win!" << std::endl; //print you win
+            int finalScore = score.getPlayerScore();
             view.setCenter(800.f, 800.f); //reset view so menu doesn't move
             window.setView(view); //set the view
+            winner.runWinScreen(window, finalScore); //call the function from Credits.cpp
             return; //return to menu
         }
 
-        health.updatePosition(window);
-
-
+        health.updatePosition(window); //update position of the hearts
+        timer.update(window); //update position of timer
+        score.update(window); //update position of score
         view.setCenter(player.getPosition()); //reset view to player
         window.setView(view); //set view
-
         window.clear(); //clear the window
         maze.draw(window); //draw the maze
         player.draw(window); //draw the player
-        health.draw(window);
+        health.draw(window); //draw hearts
 
         //spawn and draw zombies
         for (auto& zombie : zombies) {
@@ -139,19 +152,18 @@ void runGame(sf::RenderWindow& window) {
 
         //spawn and draw potions
         for (auto it = potion.begin(); it != potion.end(); ) {
-            it->update(player); // Update the potion
+            it->update(player); //update the potion
 
-            if (it->shouldDespawn()) { // Check if the potion is inactive
-                it = potion.erase(it); // Erase the potion and update the iterator
+            if (it->shouldDespawn()) { //check if the potion is inactive
+                it = potion.erase(it); //erase the potion and update the iterator
             }
             else {
-                it->draw(window, maze.getFogGrid(), maze.getCellSize()); // Draw the active potion
-                ++it; // Increment the iterator
+                it->draw(window, maze.getFogGrid(), maze.getCellSize()); //draw the active potion
+                ++it; //increment the iterator
             }
         }
-
-
-       // potions.draw(window);
+        timer.draw(window); //draw timer
+        score.draw(window); //draw score
         //display the windows
         window.display();
     }

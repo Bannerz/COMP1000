@@ -1,5 +1,5 @@
 ﻿#include "Player.hpp"
-#include <iostream> // For debugging
+#include <iostream> //for debugging
 using namespace std;
 
 Player::Player(const std::string& texturePath, float animationSpeed, float movementSpeed)
@@ -29,6 +29,7 @@ Player::Player(const std::string& texturePath, float animationSpeed, float movem
 
 }
 
+//initialise playerHealth
 void Player::health(float playerHealth) {
 
 }
@@ -58,7 +59,6 @@ void Player::updateHealthBar() {
 
 void Player::reduceHealth() {
     //health bar
-    //playerHealth -= 1.f;
     healthBar.setSize(sf::Vector2f(playerHealth, 6.f)); //update the size
     // change color based on health
     if (playerHealth > 30) {
@@ -114,11 +114,13 @@ void Player::handleInput(float elapsedTime, const std::vector<sf::Sprite>& wallS
         }
     }
 
+    //run player functions
     sprite.move(movement);
     updateCollisionBox();
     reduceHealth();
     updateHealthBar();
 
+    //play the animation is isMoving flag is true
     if (isMoving && animationClock.getElapsedTime().asSeconds() > animationSpeed) {
         frameState = (frameState + 1) % 4; // cycle frames
         sprite.setTextureRect(sf::IntRect(48 * frameState, currentRow, 48, 48));

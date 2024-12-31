@@ -3,6 +3,7 @@
 #include "Credits.hpp"
 #include "Game.hpp" 
 #include "Options.hpp"
+#include "textTest.hpp"
 #include <iostream>
 
 //define the GameState enum
@@ -32,9 +33,10 @@ int main() {
     //initialise MainMenu
     MainMenu mainMenu(window.getSize().x, window.getSize().y);
     Options optionsMenu(window.getSize().x, window.getSize().y);
+    textTest textTest(window.getSize().x, window.getSize().y);
 
 
-    sf::FloatRect mapBounds(0.f, 0.f, 1600.f, 1600.f); //adjust as per your map size
+    sf::FloatRect mapBounds(0.f, 0.f, 1600.f, 1600.f); //map bounds
 
     //track the current game state
     GameState currentState = MENU;
@@ -46,7 +48,6 @@ int main() {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-            
             if (currentState == MENU) {
                 if (event.type == sf::Event::KeyReleased) {
                     if (event.key.code == sf::Keyboard::Up) {
@@ -86,7 +87,7 @@ int main() {
                         int selectedOpOption = optionsMenu.OptionsPressed();
                         switch (selectedOpOption) {
                         case 0: //play
-                            std::cout << "Option 1 Activated" << std::endl;
+                            //textTest.runTextTest();
                             break;
                         case 1: //options
                             std::cout << "Option 2 Activated" << std::endl;

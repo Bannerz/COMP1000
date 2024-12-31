@@ -8,19 +8,13 @@ using namespace std;
 
 sf::Texture Zombie::zombieTexture; //define the static texture
 
-
 Zombie::Zombie(float movementSpeed, float animationSpeed)
     : movementSpeed(movementSpeed), animationSpeed(animationSpeed), currentDirection(getRandomDirection()) {
     //ensure the texture is loaded
-    if (zombieTexture.getSize().x == 0) { //check if the texture is not loaded
         if (!zombieTexture.loadFromFile("textures/enemies/zombie.png")) {
             std::cerr << "Error: Could not load zombie texture" << std::endl;
         }
-        else {
-            std::cout << "Zombie texture loaded successfully!" << std::endl;
-        }
-    }
-
+    
     //set up zombie sprite
     sprite.setTexture(zombieTexture);
     sprite.setTextureRect(sf::IntRect(0, 0, 48, 48)); //sprite sheet frames
@@ -198,10 +192,10 @@ void Zombie::draw(sf::RenderWindow& window, const std::vector<std::vector<bool>>
     }
 }
 
-
-
+//spawn zombies function
 std::vector<Zombie> Zombie::spawnZombies(int zombieCount, const sf::FloatRect& mapBounds, const std::vector<sf::Sprite>& wallSprites, const std::string& zombieTexturePath, float movementSpeed, float animationSpeed) {
-    std::vector<Zombie> zombies;
+    std::vector<Zombie> zombies; //create zombies vector
+    //random setups
     std::random_device rd;
     std::mt19937 rng(rd());
     std::uniform_real_distribution<float> randomX(mapBounds.left, mapBounds.left + mapBounds.width);

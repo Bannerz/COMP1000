@@ -1,4 +1,5 @@
 #include "Options.hpp"
+#include "textTest.hpp"
 
 Options::Options(float width, float height) {
 	if (!font.loadFromFile("fonts/joystix_monospace.otf")) {
@@ -9,7 +10,7 @@ Options::Options(float width, float height) {
 	//item 1
 	optionsMenu[0].setFont(font);
 	optionsMenu[0].setFillColor(sf::Color::White);
-	optionsMenu[0].setString("Option 1");
+	optionsMenu[0].setString("Text Test");
 	optionsMenu[0].setCharacterSize(70);
 	optionsMenu[0].setPosition(200, 200);
 

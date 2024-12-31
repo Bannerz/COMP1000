@@ -16,6 +16,6 @@ public:
     float remainingTime; //remaining time in seconds
 
     float getRemainingTime() const;
-
+    void setRemainingTime(float time);
 };
 

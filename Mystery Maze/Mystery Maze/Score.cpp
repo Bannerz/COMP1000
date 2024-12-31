@@ -3,9 +3,10 @@
 #include <iomanip>
 #include <sstream>
 
-Score::Score(){
+Score::Score(int initialScore) : playerScore(initialScore) {
     if (!scoreFont.loadFromFile("fonts/joystix_monospace.otf")) {
         std::cerr << "No font file found!" << std::endl;
+        exit(EXIT_FAILURE); // Exit or handle the error gracefully
     }
 
     scoreText.setFont(scoreFont);

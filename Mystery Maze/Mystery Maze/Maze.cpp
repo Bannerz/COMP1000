@@ -216,5 +216,20 @@ sf::FloatRect Maze::getBounds() const {
     return sf::FloatRect(0.f, 0.f, widthInPixels, heightInPixels); //top left at 0, 0
 }
 
+std::vector<int> Maze::flatten() const {
+    std::vector<int> flat;
+    for (const auto& row : grid) { // Assuming mazeGrid is your 2D grid
+        flat.insert(flat.end(), row.begin(), row.end());
+    }
+    return flat;
+}
 
+void Maze::generateFromData(int size, const std::vector<int>& data) {
+    grid.resize(size, std::vector<int>(size));
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            grid[i][j] = data[i * size + j];
+        }
+    }
+}
 

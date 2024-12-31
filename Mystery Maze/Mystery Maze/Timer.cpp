@@ -43,6 +43,11 @@ float Timer::getRemainingTime() const {
     return remainingTime;
 }
 
+void Timer::setRemainingTime(float time) {
+    remainingTime = time;
+    tClock.restart(); // Restart the clock to align with the new remaining time
+}
+
 void Timer::draw(sf::RenderWindow& window) {
     window.draw(timerText);
 }

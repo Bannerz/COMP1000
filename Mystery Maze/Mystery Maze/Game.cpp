@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Maze.hpp"
+#include "Game.hpp"
 #include "Player.hpp"
 #include "Health.hpp"
 #include "Zombie.hpp"
@@ -9,6 +10,8 @@
 #include "Timer.hpp"
 #include "Score.hpp"
 #include <iostream>
+#include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -59,14 +62,55 @@ void runGame(sf::RenderWindow& window) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
+            //exit to menu on Escape key
+            if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape) {
+                view.setCenter(800.f, 800.f); //move the view back to original position so the menu doesn't move
+                window.setView(view); //set the view
+                return; //actually return to previous menu
+            }
+
+            if (event.type == sf::Event::KeyPressed) {
+                // Save Game with P
+                if (event.key.code == sf::Keyboard::P) {
+                    saveState state;
+                    state.level = level;
+                    state.mazeSize = mazeSize;
+                    state.playerLives = playerLives;
+                    state.playerScore = score.getPlayerScore();
+                    state.playerX = player.getPosition().x;
+                    state.playerY = player.getPosition().y;
+                    state.timerRemaining = timer.getRemainingTime();
+                    state.mazeData = maze.flatten(); // Flatten the maze into a 1D vector
+                    std::cout << "Saving state:" << std::endl;
+                    std::cout << "Level: " << state.level << std::endl;
+                    std::cout << "Maze Size: " << state.mazeSize << std::endl;
+                    std::cout << "Player Lives: " << state.playerLives << std::endl;
+                    std::cout << "Player Score: " << state.playerScore << std::endl;
+                    std::cout << "Player Position: (" << state.playerX << ", " << state.playerY << ")" << std::endl;
+                    std::cout << "Timer Remaining: " << state.timerRemaining << std::endl;
+                    std::cout << "Maze Data Size: " << state.mazeData.size() << std::endl;
+                    saveGameState(state, "savegame.dat");
+                    std::cout << "Game saved!" << std::endl;
+                }
+
+                // Load Game with O
+                if (event.key.code == sf::Keyboard::O) {
+                    saveState state;
+                    if (loadGameState(state, "savegame.dat")) {
+                        level = state.level;
+                        mazeSize = state.mazeSize;
+                        playerLives = state.playerLives;
+                        score = Score(state.playerScore);
+                        player.setPosition(state.playerX, state.playerY);
+                        timer.setRemainingTime(state.timerRemaining);
+                        maze.generateFromData(state.mazeSize, state.mazeData);
+                        std::cout << "Game loaded!" << std::endl;
+                    }
+                }
+            }
         }
 
-        //exit to menu on Escape key
-        if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Escape) {
-            view.setCenter(800.f, 800.f); //move the view back to original position so the menu doesn't move
-            window.setView(view); //set the view
-            return; //actually return to previous menu
-        }
+       
 
         float elapsedTime = clock.restart().asSeconds(); //measure elapsed time in seconds
         player.handleInput(elapsedTime, maze.getWallSprites());
@@ -168,3 +212,49 @@ void runGame(sf::RenderWindow& window) {
         window.display();
     }
 }
+
+void saveGameState(const saveState& state, const std::string& filename) {
+    std::ofstream file(filename, std::ios::binary);
+    if (file.is_open()) {
+        file.write(reinterpret_cast<const char*>(&state.level), sizeof(state.level));
+        file.write(reinterpret_cast<const char*>(&state.mazeSize), sizeof(state.mazeSize));
+        file.write(reinterpret_cast<const char*>(&state.playerLives), sizeof(state.playerLives));
+        file.write(reinterpret_cast<const char*>(&state.playerScore), sizeof(state.playerScore));
+        file.write(reinterpret_cast<const char*>(&state.playerX), sizeof(state.playerX));
+        file.write(reinterpret_cast<const char*>(&state.playerY), sizeof(state.playerY));
+        file.write(reinterpret_cast<const char*>(&state.timerRemaining), sizeof(state.timerRemaining));
+        size_t mazeSize = state.mazeData.size();
+        file.write(reinterpret_cast<const char*>(&mazeSize), sizeof(mazeSize));
+        file.write(reinterpret_cast<const char*>(state.mazeData.data()), mazeSize * sizeof(int));
+        file.close();
+        std::cout << "Game saved successfully!" << std::endl;
+    }
+    else {
+        std::cerr << "Failed to save game!" << std::endl;
+    }
+}
+
+bool loadGameState(saveState& state, const std::string& filename) {
+    std::ifstream file(filename, std::ios::binary);
+    if (file.is_open()) {
+        file.read(reinterpret_cast<char*>(&state.level), sizeof(state.level));
+        file.read(reinterpret_cast<char*>(&state.mazeSize), sizeof(state.mazeSize));
+        file.read(reinterpret_cast<char*>(&state.playerLives), sizeof(state.playerLives));
+        file.read(reinterpret_cast<char*>(&state.playerScore), sizeof(state.playerScore));
+        file.read(reinterpret_cast<char*>(&state.playerX), sizeof(state.playerX));
+        file.read(reinterpret_cast<char*>(&state.playerY), sizeof(state.playerY));
+        file.read(reinterpret_cast<char*>(&state.timerRemaining), sizeof(state.timerRemaining));
+        size_t mazeSize;
+        file.read(reinterpret_cast<char*>(&mazeSize), sizeof(mazeSize));
+        state.mazeData.resize(mazeSize);
+        file.read(reinterpret_cast<char*>(state.mazeData.data()), mazeSize * sizeof(int));
+        file.close();
+        std::cout << "Game loaded successfully!" << std::endl;
+        return true;
+    }
+    else {
+        std::cerr << "Failed to load game!" << std::endl;
+        return false;
+    }
+}
+

@@ -14,7 +14,6 @@ private:
     std::vector<sf::Sprite> pathSprites; //non collidable path sprites
     int cellSize; //size of each cell in pixels
     int width, height; //dimensions of the maze in cells
-
     sf::Vector2f endPosition; //position of the end tile
     sf::RectangleShape endMarker; //end tile
 
@@ -41,6 +40,10 @@ public:
     const std::vector<std::vector<int>>& getGrid() const { return grid; } //get the grid
     int getCellSize() const { return cellSize; } //get the cell size
     sf::FloatRect getBounds() const; //get bounds
+    std::vector<int> flatten() const;
+    void generateFromData(int size, const std::vector<int>& data);
+
+
 
 };
 
